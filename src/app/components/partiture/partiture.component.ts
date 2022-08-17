@@ -48,7 +48,6 @@ export class PartitureComponent {
   private changeClef(clefType: ClefTypes) {
     this.isClefRandom = false;
     if (clefType === ClefTypes.RANDOM) {
-      // Random
       this.isClefRandom = true;
       clefType = ClefTypes.SOL;
       if (Math.random() > 0.5) {
@@ -126,5 +125,6 @@ export class PartitureComponent {
     );
     findNote ? (findNote.checked = !findNote?.checked) : null;
     this.applyFilter();
+    this.newRandomNote();
   }
 }

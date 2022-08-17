@@ -21,6 +21,10 @@ export class GuessBoxComponent {
 
   onInputChange() {
     this.inputChangeCallback.emit();
+    this.guessNoteInputField.nativeElement.value =
+      this.guessNoteValue.toLocaleUpperCase();
+    this.guessNoteInputField.nativeElement.focus();
+    this.guessNoteInputField.nativeElement.select();
   }
 
   checkNoteCallback() {
