@@ -1,0 +1,33 @@
+.notes-filter-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 77px;
+  margin-right: 90px;
+}
+
+.partiture-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  min-width: 850px;
+  gap: 20px;
+
+  .clef-wrapper {
+    display: flex;
+    justify-content: center;
+    padding: 120px 0 20px;
+
+    .note {
+      position: relative;
+      height: 104px;
+      left: -200px;
+    }
+  }
+
+  .guess-note-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}

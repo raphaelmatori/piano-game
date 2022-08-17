@@ -1,0 +1,91 @@
+<div class="partiture-wrapper">
+  <div class="notes-filter-wrapper">
+    <mat-checkbox
+      *ngFor="let checkbox of checkboxNotes"
+      [value]="checkbox.value"
+      [checked]="checkbox.checked"
+      (change)="onFilterChange(checkbox.value)"
+    >
+      {{ checkbox.value }}
+    </mat-checkbox>
+  </div>
+
+  <div class="clef-wrapper">
+    <img src="assets/images/clef-g.png" *ngIf="clefType === 'G'" />
+    <img src="assets/images/clef-f.png" *ngIf="clefType === 'F'" />
+
+    <img
+      [src]="this.currentNote.image"
+      class="note"
+      [style]="
+        this.currentNote.positionY
+          ? 'top:' + this.currentNote.positionY + 'px'
+          : null
+      "
+    />
+  </div>
+  <div class="guess-note-wrapper" style="max-width: 250px">
+    <h2>What note is this?</h2>
+    <mat-form-field appearance="fill">
+      <mat-label>Note Symbol</mat-label>
+      <input
+        matInput
+        placeholder="Ex. C, D, E..."
+        [value]="this.guessNoteValue.toUpperCase()"
+        [(ngModel)]="this.guessNoteValue"
+        #guessNoteInput
+        (ngModelChange)="onInputChange()"
+        onfocus="this.select()"
+        maxlength="1"
+        (keydown.enter)="checkNote()"
+      />
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="checkNote()">
+      Check
+    </button>
+  </div>
+</div>
+
+<mat-radio-group
+  aria-label="Select one clef option"
+  style="
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding-bottom: 20px;
+    gap: 20px;
+  "
+>
+  <mat-radio-button
+    value="R"
+    (change)="onSelectClef('R')"
+    [checked]="isClefRandom"
+    >Random clef</mat-radio-button
+  >
+
+  <mat-radio-button
+    value="G"
+    (change)="onSelectClef('G')"
+    [checked]="clefType === 'G' && !isClefRandom"
+    >G clef</mat-radio-button
+  >
+  <mat-radio-button
+    value="F"
+    (change)="onSelectClef('F')"
+    [checked]="clefType === 'F' && !isClefRandom"
+    >F clef</mat-radio-button
+  >
+</mat-radio-group>
+
+<div style="display: flex; justify-content: center">
+  <app-message
+    *ngIf="validation && displayMessage"
+    type="success"
+    message="That is correct!"
+  ></app-message>
+  <app-message
+    *ngIf="!validation && displayMessage"
+    type="error"
+    message="That is wrong!"
+  ></app-message>
+</div>
