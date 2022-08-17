@@ -14,9 +14,16 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { PartitureComponent } from './components/partiture/partiture.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MessageComponent } from './components/message/message.component';
+import { GuessBoxComponent } from './components/partiture/guess-box/guess-box.component';
 
 @NgModule({
-  declarations: [AppComponent, NavbarComponent, PartitureComponent, MessageComponent],
+  declarations: [
+    AppComponent,
+    NavbarComponent,
+    PartitureComponent,
+    MessageComponent,
+    GuessBoxComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,

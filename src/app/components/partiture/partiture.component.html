@@ -24,26 +24,10 @@
       "
     />
   </div>
-  <div class="guess-note-wrapper" style="max-width: 250px">
-    <h2>What note is this?</h2>
-    <mat-form-field appearance="fill">
-      <mat-label>Note Symbol</mat-label>
-      <input
-        matInput
-        placeholder="Ex. C, D, E..."
-        [value]="this.guessNoteValue.toUpperCase()"
-        [(ngModel)]="this.guessNoteValue"
-        #guessNoteInput
-        (ngModelChange)="onInputChange()"
-        onfocus="this.select()"
-        maxlength="1"
-        (keydown.enter)="checkNote()"
-      />
-    </mat-form-field>
-    <button mat-raised-button color="primary" (click)="checkNote()">
-      Check
-    </button>
-  </div>
+  <app-guess-box
+    (inputChangeCallback)="hideMessage()"
+    (typedNoteCallback)="checkNote($event)"
+  ></app-guess-box>
 </div>
 
 <mat-radio-group
@@ -79,12 +63,12 @@
 
 <div style="display: flex; justify-content: center">
   <app-message
-    *ngIf="validation && displayMessage"
+    *ngIf="validation && shouldDisplayMessage"
     type="success"
     message="That is correct!"
   ></app-message>
   <app-message
-    *ngIf="!validation && displayMessage"
+    *ngIf="!validation && shouldDisplayMessage"
     type="error"
     message="That is wrong!"
   ></app-message>

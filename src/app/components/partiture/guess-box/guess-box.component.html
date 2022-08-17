@@ -1,0 +1,20 @@
+<div class="guess-note-wrapper">
+  <h2>What note is this?</h2>
+  <mat-form-field appearance="fill">
+    <mat-label>Note Symbol</mat-label>
+    <input
+      matInput
+      placeholder="Ex. C, D, E..."
+      [value]="this.guessNoteValue.toUpperCase()"
+      [(ngModel)]="this.guessNoteValue"
+      #guessNoteInput
+      (ngModelChange)="onInputChange()"
+      onfocus="this.select()"
+      maxlength="1"
+      (keydown.enter)="onInputChange()"
+    />
+  </mat-form-field>
+  <button mat-raised-button color="primary" (click)="checkNoteCallback()">
+    Check
+  </button>
+</div>

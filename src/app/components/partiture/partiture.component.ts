@@ -1,6 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { clefGDataset } from './dataset/clef-g-dataset';
 import { clefFDataset } from './dataset/clef-f-dataset';
+import { GuessBoxComponent } from './guess-box/guess-box.component';
 
 @Component({
   selector: 'app-partiture',
@@ -8,8 +9,8 @@ import { clefFDataset } from './dataset/clef-f-dataset';
   styleUrls: ['./partiture.component.scss'],
 })
 export class PartitureComponent {
-  @ViewChild('guessNoteInput', { static: false })
-  guessNoteInputField: ElementRef<HTMLInputElement> = {} as ElementRef;
+  @ViewChild(GuessBoxComponent) child: GuessBoxComponent | undefined;
+
   newNoteSetTimeout: ReturnType<typeof setTimeout> | undefined;
   checkboxNotes = [
     { value: 'A', checked: true },
@@ -22,12 +23,11 @@ export class PartitureComponent {
   ];
 
   currentclef = 'G';
-  guessNoteValue: string = '';
   currentclefDataset = clefGDataset;
   currentNote = clefGDataset[0];
   clefType = this.currentclef;
   validation = false;
-  displayMessage = false;
+  shouldDisplayMessage = false;
   isClefRandom = false;
 
   constructor() {
@@ -37,6 +37,10 @@ export class PartitureComponent {
   onSelectClef(clefType: string) {
     this.changeClef(clefType);
     this.newRandomNote();
+  }
+
+  hideMessage() {
+    this.shouldDisplayMessage = false;
   }
 
   private changeClef(clefType: string) {
@@ -62,10 +66,6 @@ export class PartitureComponent {
     this.applyFilter();
   }
 
-  onInputChange() {
-    this.displayMessage = false;
-  }
-
   applyFilter() {
     let auxDataset = clefFDataset;
 
@@ -88,12 +88,10 @@ export class PartitureComponent {
     this.currentclefDataset = resultDataset;
   }
 
-  checkNote() {
-    this.validation =
-      this.guessNoteValue.toLocaleUpperCase() === this.currentNote.symbol;
-    this.displayMessage = true;
-    this.guessNoteInputField.nativeElement.focus();
-    this.guessNoteInputField.nativeElement.select();
+  checkNote(note: any) {
+    console.log(note, this.currentNote.symbol);
+    this.validation = note === this.currentNote.symbol;
+    this.shouldDisplayMessage = true;
 
     if (this.validation === true) {
       if (this.newNoteSetTimeout) {
@@ -101,14 +99,14 @@ export class PartitureComponent {
       }
 
       this.newNoteSetTimeout = setTimeout(() => {
-        this.guessNoteInputField.nativeElement.value = '';
+        this.child?.resetForm();
         this.newRandomNote();
       }, 500);
     }
   }
 
   newRandomNote() {
-    this.displayMessage = false;
+    this.shouldDisplayMessage = false;
 
     if (this.isClefRandom) {
       this.changeClef('R');

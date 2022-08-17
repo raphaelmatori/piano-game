@@ -24,10 +24,9 @@
       left: -200px;
     }
   }
+}
 
-  .guess-note-wrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
+app-guess-box {
+  display: flex;
+  align-items: center;
 }
