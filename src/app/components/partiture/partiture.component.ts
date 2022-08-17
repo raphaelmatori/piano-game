@@ -1,6 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { clefGDataset } from './dataset/clef-g-dataset';
 import { clefFDataset } from './dataset/clef-f-dataset';
+import { ClefTypes } from './../../models/clef-types-enum';
 import { GuessBoxComponent } from './guess-box/guess-box.component';
 
 @Component({
@@ -10,7 +11,7 @@ import { GuessBoxComponent } from './guess-box/guess-box.component';
 })
 export class PartitureComponent {
   @ViewChild(GuessBoxComponent) child: GuessBoxComponent | undefined;
-
+  ClefTypes = ClefTypes;
   newNoteSetTimeout: ReturnType<typeof setTimeout> | undefined;
   checkboxNotes = [
     { value: 'A', checked: true },
@@ -22,19 +23,20 @@ export class PartitureComponent {
     { value: 'G', checked: true },
   ];
 
-  currentclef = 'G';
-  currentclefDataset = clefGDataset;
+  currentClef = ClefTypes.RANDOM;
+  currentClefDataset = clefGDataset;
   currentNote = clefGDataset[0];
-  clefType = this.currentclef;
+  clefType = this.currentClef;
   validation = false;
   shouldDisplayMessage = false;
   isClefRandom = false;
 
   constructor() {
+    this.changeClef(ClefTypes.RANDOM);
     this.applyFilter();
   }
 
-  onSelectClef(clefType: string) {
+  onSelectClef(clefType: ClefTypes) {
     this.changeClef(clefType);
     this.newRandomNote();
   }
@@ -43,25 +45,25 @@ export class PartitureComponent {
     this.shouldDisplayMessage = false;
   }
 
-  private changeClef(clefType: string) {
+  private changeClef(clefType: ClefTypes) {
     this.isClefRandom = false;
-    if (clefType === 'R') {
+    if (clefType === ClefTypes.RANDOM) {
       // Random
       this.isClefRandom = true;
-      clefType = 'G';
+      clefType = ClefTypes.SOL;
       if (Math.random() > 0.5) {
-        clefType = 'F';
+        clefType = ClefTypes.FA;
       }
     }
 
     this.clefType = clefType;
 
-    if (clefType === 'G') {
-      this.currentclef = 'G';
-      this.currentclefDataset = clefGDataset;
+    if (clefType === ClefTypes.SOL) {
+      this.currentClef = ClefTypes.SOL;
+      this.currentClefDataset = clefGDataset;
     } else {
-      this.currentclef = 'F';
-      this.currentclefDataset = clefFDataset;
+      this.currentClef = ClefTypes.FA;
+      this.currentClefDataset = clefFDataset;
     }
     this.applyFilter();
   }
@@ -69,7 +71,7 @@ export class PartitureComponent {
   applyFilter() {
     let auxDataset = clefFDataset;
 
-    if (this.currentclef === 'G') {
+    if (this.currentClef === ClefTypes.SOL) {
       auxDataset = clefGDataset;
     }
 
@@ -85,7 +87,7 @@ export class PartitureComponent {
       );
     });
 
-    this.currentclefDataset = resultDataset;
+    this.currentClefDataset = resultDataset;
   }
 
   checkNote(note: any) {
@@ -109,12 +111,12 @@ export class PartitureComponent {
     this.shouldDisplayMessage = false;
 
     if (this.isClefRandom) {
-      this.changeClef('R');
+      this.changeClef(ClefTypes.RANDOM);
     }
 
     this.currentNote =
-      this.currentclefDataset[
-        Math.floor(Math.random() * this.currentclefDataset.length)
+      this.currentClefDataset[
+        Math.floor(Math.random() * this.currentClefDataset.length)
       ];
   }
 

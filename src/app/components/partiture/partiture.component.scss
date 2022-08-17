@@ -16,7 +16,7 @@
   .clef-wrapper {
     display: flex;
     justify-content: center;
-    padding: 120px 0 20px;
+    padding: 100px 0 20px;
 
     .note {
       position: relative;
@@ -26,7 +26,21 @@
   }
 }
 
+.messages-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+mat-radio-group {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding-bottom: 20px;
+  gap: 20px;
+}
+
 app-guess-box {
   display: flex;
   align-items: center;
+  padding-top: 50px;
 }

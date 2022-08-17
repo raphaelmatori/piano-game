@@ -15,6 +15,7 @@ import { PartitureComponent } from './components/partiture/partiture.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MessageComponent } from './components/message/message.component';
 import { GuessBoxComponent } from './components/partiture/guess-box/guess-box.component';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { GuessBoxComponent } from './components/partiture/guess-box/guess-box.co
     MatButtonModule,
     FormsModule,
     MatCheckboxModule,
+    MatCardModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
