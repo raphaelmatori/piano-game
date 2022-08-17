@@ -103,7 +103,7 @@ export class PartitureComponent {
       this.newNoteSetTimeout = setTimeout(() => {
         this.guessNoteInputField.nativeElement.value = '';
         this.newRandomNote();
-      }, 2000);
+      }, 500);
     }
   }
 
