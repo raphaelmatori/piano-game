@@ -10,7 +10,10 @@
     </mat-checkbox>
   </div>
 
-  <div class="clef-wrapper">
+  <div
+    class="clef-wrapper"
+    [style.opacity]="isAtLeastOneNoteSelected ? '1' : '0'"
+  >
     <img src="assets/images/clef-g.png" *ngIf="clefType === 'G'" />
     <img src="assets/images/clef-f.png" *ngIf="clefType === 'F'" />
 
@@ -25,6 +28,7 @@
     />
   </div>
   <app-guess-box
+    [style.opacity]="isAtLeastOneNoteSelected ? '1' : '0'"
     (inputChangeCallback)="hideMessage()"
     (typedNoteCallback)="checkNote($event)"
   ></app-guess-box>
@@ -52,7 +56,7 @@
   >
 </mat-radio-group>
 
-<div class="messages-wrapper">
+<div class="messages-wrapper" [hidden]="isAtLeastOneNoteSelected">
   <app-message
     *ngIf="validation && shouldDisplayMessage"
     type="success"

@@ -30,6 +30,7 @@ export class PartitureComponent {
   validation = false;
   shouldDisplayMessage = false;
   isClefRandom = false;
+  isAtLeastOneNoteSelected = true;
 
   constructor() {
     this.changeClef(ClefTypes.RANDOM);
@@ -68,6 +69,7 @@ export class PartitureComponent {
   }
 
   applyFilter() {
+    this.isAtLeastOneNoteSelected = true;
     let auxDataset = clefFDataset;
 
     if (this.currentClef === ClefTypes.SOL) {
@@ -79,6 +81,11 @@ export class PartitureComponent {
     const displayNotes = this.checkboxNotes.filter(
       (element) => element.checked
     );
+
+    if (displayNotes.length === 0) {
+      this.isAtLeastOneNoteSelected = false;
+      return;
+    }
 
     displayNotes.forEach((element) => {
       resultDataset.push(
