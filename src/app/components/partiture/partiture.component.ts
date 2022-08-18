@@ -65,7 +65,6 @@ export class PartitureComponent {
       this.currentClef = ClefTypes.FA;
       this.currentClefDataset = clefFDataset;
     }
-    this.applyFilter();
   }
 
   applyFilter() {
@@ -119,6 +118,8 @@ export class PartitureComponent {
     if (this.isClefRandom) {
       this.changeClef(ClefTypes.RANDOM);
     }
+
+    this.applyFilter();
 
     this.currentNote =
       this.currentClefDataset[
