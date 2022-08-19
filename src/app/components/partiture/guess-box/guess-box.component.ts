@@ -35,6 +35,7 @@ export class GuessBoxComponent {
 
   resetForm() {
     this.guessNoteInputField.nativeElement.value = '';
+    this.guessNoteInputField.nativeElement.dispatchEvent(new Event('input'));
     this.guessNoteInputField.nativeElement.focus();
   }
 }

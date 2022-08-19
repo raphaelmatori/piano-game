@@ -96,7 +96,6 @@ export class PartitureComponent {
   }
 
   checkNote(note: any) {
-    console.log(note, this.currentNote.symbol);
     this.validation = note === this.currentNote.symbol;
     this.shouldDisplayMessage = true;
 
