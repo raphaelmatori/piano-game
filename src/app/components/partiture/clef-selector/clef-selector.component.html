@@ -1,0 +1,21 @@
+<mat-radio-group aria-label="Select one clef option">
+  <mat-radio-button
+    [value]="ClefTypes.RANDOM"
+    (change)="selectClef(ClefTypes.RANDOM)"
+    [checked]="selectedClef === ClefTypes.RANDOM"
+    >Random clef</mat-radio-button
+  >
+
+  <mat-radio-button
+    [value]="ClefTypes.SOL"
+    (change)="selectClef(ClefTypes.SOL)"
+    [checked]="selectedClef === ClefTypes.SOL"
+    >G clef</mat-radio-button
+  >
+  <mat-radio-button
+    [value]="ClefTypes.FA"
+    (change)="selectClef(ClefTypes.FA)"
+    [checked]="selectedClef === ClefTypes.FA"
+    >F clef</mat-radio-button
+  >
+</mat-radio-group>

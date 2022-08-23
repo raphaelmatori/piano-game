@@ -8,6 +8,5 @@ import { Component, Input, OnInit } from '@angular/core';
 export class MessageComponent {
   @Input() type: string = '';
   @Input() message: string = '';
-
-  constructor() {}
+  @Input() shouldDisplayMessage: boolean = false;
 }

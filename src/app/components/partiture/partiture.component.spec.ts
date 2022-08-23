@@ -8,9 +8,8 @@ describe('PartitureComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PartitureComponent ]
-    })
-    .compileComponents();
+      declarations: [PartitureComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

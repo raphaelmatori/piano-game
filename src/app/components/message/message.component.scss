@@ -1,10 +1,15 @@
-p {
-  font-size: 16px;
-}
+.message-wrapper {
+  display: flex;
+  justify-content: center;
 
-.error {
-  color: red;
-}
-.success {
-  color: green;
+  p {
+    font-size: 16px;
+  }
+
+  .error {
+    color: red;
+  }
+  .success {
+    color: green;
+  }
 }

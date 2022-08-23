@@ -4,7 +4,7 @@
       *ngFor="let checkbox of checkboxNotes"
       [value]="checkbox.value"
       [checked]="checkbox.checked"
-      (change)="onFilterChange(checkbox.value)"
+      (change)="filterChangeCallback(checkbox.value)"
     >
       {{ checkbox.value }}
     </mat-checkbox>
@@ -14,8 +14,13 @@
     class="clef-wrapper"
     [style.opacity]="isAtLeastOneNoteSelected ? '1' : '0'"
   >
-    <img src="assets/images/clef-g.png" *ngIf="clefType === 'G'" />
-    <img src="assets/images/clef-f.png" *ngIf="clefType === 'F'" />
+    <img
+      [src]="
+        currentDiplayedClef === 'G'
+          ? 'assets/images/clef-g.png'
+          : 'assets/images/clef-f.png'
+      "
+    />
 
     <img
       [src]="this.currentNote.image"
@@ -29,42 +34,16 @@
   </div>
   <app-guess-box
     [style.opacity]="isAtLeastOneNoteSelected ? '1' : '0'"
-    (inputChangeCallback)="hideMessage()"
-    (typedNoteCallback)="checkNote($event)"
+    (byInputChange)="hideMessageCallback()"
+    (byTypedNote)="checkNote($event)"
   ></app-guess-box>
 </div>
 
-<mat-radio-group aria-label="Select one clef option">
-  <mat-radio-button
-    [value]="ClefTypes.RANDOM"
-    (change)="onSelectClef(ClefTypes.RANDOM)"
-    [checked]="isClefRandom"
-    >Random clef</mat-radio-button
-  >
-
-  <mat-radio-button
-    [value]="ClefTypes.SOL"
-    (change)="onSelectClef(ClefTypes.SOL)"
-    [checked]="clefType === ClefTypes.SOL && !isClefRandom"
-    >G clef</mat-radio-button
-  >
-  <mat-radio-button
-    [value]="ClefTypes.FA"
-    (change)="onSelectClef(ClefTypes.FA)"
-    [checked]="clefType === ClefTypes.FA && !isClefRandom"
-    >F clef</mat-radio-button
-  >
-</mat-radio-group>
-
-<div class="messages-wrapper" [hidden]="isAtLeastOneNoteSelected">
-  <app-message
-    *ngIf="validation && shouldDisplayMessage"
-    type="success"
-    message="That is correct!"
-  ></app-message>
-  <app-message
-    *ngIf="!validation && shouldDisplayMessage"
-    type="error"
-    message="That is wrong!"
-  ></app-message>
-</div>
+<app-clef-selector
+  (bySelectClef)="changeClefCallback($event)"
+></app-clef-selector>
+<app-message
+  [shouldDisplayMessage]="shouldDisplayMessage"
+  [type]="validation ? 'success' : 'error'"
+  [message]="validation ? 'That is correct!' : 'That is wrong!'"
+></app-message>

@@ -11,7 +11,6 @@ import { GuessBoxComponent } from './guess-box/guess-box.component';
 })
 export class PartitureComponent {
   @ViewChild(GuessBoxComponent) child: GuessBoxComponent | undefined;
-  ClefTypes = ClefTypes;
   newNoteSetTimeout: ReturnType<typeof setTimeout> | undefined;
   checkboxNotes = [
     { value: 'A', checked: true },
@@ -23,13 +22,12 @@ export class PartitureComponent {
     { value: 'G', checked: true },
   ];
 
-  currentClef = ClefTypes.RANDOM;
+  clefTypeSelected = ClefTypes.RANDOM;
+  currentDiplayedClef = ClefTypes.SOL;
   currentClefDataset = clefGDataset;
   currentNote = clefGDataset[0];
-  clefType = this.currentClef;
   validation = false;
   shouldDisplayMessage = false;
-  isClefRandom = false;
   isAtLeastOneNoteSelected = true;
 
   constructor() {
@@ -37,32 +35,27 @@ export class PartitureComponent {
     this.applyFilter();
   }
 
-  onSelectClef(clefType: ClefTypes) {
+  changeClefCallback(clefType: ClefTypes) {
+    this.clefTypeSelected = clefType;
     this.changeClef(clefType);
     this.newRandomNote();
   }
 
-  hideMessage() {
+  hideMessageCallback() {
     this.shouldDisplayMessage = false;
   }
 
   private changeClef(clefType: ClefTypes) {
-    this.isClefRandom = false;
     if (clefType === ClefTypes.RANDOM) {
-      this.isClefRandom = true;
-      clefType = ClefTypes.SOL;
+      this.currentDiplayedClef = ClefTypes.SOL;
       if (Math.random() > 0.5) {
-        clefType = ClefTypes.FA;
+        this.currentDiplayedClef = ClefTypes.FA;
       }
     }
 
-    this.clefType = clefType;
+    this.currentClefDataset = clefGDataset;
 
-    if (clefType === ClefTypes.SOL) {
-      this.currentClef = ClefTypes.SOL;
-      this.currentClefDataset = clefGDataset;
-    } else {
-      this.currentClef = ClefTypes.FA;
+    if (this.currentDiplayedClef === ClefTypes.FA) {
       this.currentClefDataset = clefFDataset;
     }
   }
@@ -71,7 +64,7 @@ export class PartitureComponent {
     this.isAtLeastOneNoteSelected = true;
     let auxDataset = clefFDataset;
 
-    if (this.currentClef === ClefTypes.SOL) {
+    if (this.currentDiplayedClef === ClefTypes.SOL) {
       auxDataset = clefGDataset;
     }
 
@@ -114,7 +107,7 @@ export class PartitureComponent {
   newRandomNote() {
     this.shouldDisplayMessage = false;
 
-    if (this.isClefRandom) {
+    if (this.clefTypeSelected === ClefTypes.RANDOM) {
       this.changeClef(ClefTypes.RANDOM);
     }
 
@@ -126,7 +119,7 @@ export class PartitureComponent {
       ];
   }
 
-  onFilterChange(value: string) {
+  filterChangeCallback(value: string) {
     let findNote = this.checkboxNotes.find(
       (element) => element.value === value
     );

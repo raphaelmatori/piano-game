@@ -12,15 +12,15 @@ import {
   styleUrls: ['./guess-box.component.scss'],
 })
 export class GuessBoxComponent {
-  @Output() inputChangeCallback = new EventEmitter();
-  @Output() typedNoteCallback = new EventEmitter();
+  @Output() byInputChange = new EventEmitter();
+  @Output() byTypedNote = new EventEmitter();
   @ViewChild('guessNoteInput', { static: false })
   guessNoteInputField: ElementRef<HTMLInputElement> = {} as ElementRef;
 
   guessNoteValue: string = '';
 
   onInputChange() {
-    this.inputChangeCallback.emit();
+    this.byInputChange.emit();
     this.guessNoteInputField.nativeElement.value =
       this.guessNoteValue.toLocaleUpperCase();
     this.guessNoteInputField.nativeElement.focus();
@@ -28,7 +28,7 @@ export class GuessBoxComponent {
   }
 
   checkNoteCallback() {
-    this.typedNoteCallback.emit(this.guessNoteValue.toLocaleUpperCase());
+    this.byTypedNote.emit(this.guessNoteValue.toLocaleUpperCase());
     this.guessNoteInputField.nativeElement.focus();
     this.guessNoteInputField.nativeElement.select();
   }

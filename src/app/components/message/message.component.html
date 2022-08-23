@@ -1,1 +1,3 @@
-<p [class]="type">{{ message }}</p>
+<div class="message-wrapper" *ngIf="shouldDisplayMessage">
+  <p [class]="type">{{ message }}</p>
+</div>

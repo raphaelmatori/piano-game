@@ -16,6 +16,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MessageComponent } from './components/message/message.component';
 import { GuessBoxComponent } from './components/partiture/guess-box/guess-box.component';
 import { MatCardModule } from '@angular/material/card';
+import { ClefSelectorComponent } from './components/partiture/clef-selector/clef-selector.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { MatCardModule } from '@angular/material/card';
     PartitureComponent,
     MessageComponent,
     GuessBoxComponent,
+    ClefSelectorComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,6 +39,7 @@ import { MatCardModule } from '@angular/material/card';
     FormsModule,
     MatCheckboxModule,
     MatCardModule,
+    MatToolbarModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
