@@ -1,7 +1,7 @@
 <mat-card class="guess-note-wrapper">
-  <h2>What note is this?</h2>
+  <h2>Which note is this?</h2>
   <mat-form-field appearance="fill">
-    <mat-label>Note Symbol</mat-label>
+    <mat-label>Chord Symbol</mat-label>
     <input
       matInput
       placeholder="Ex. C, D, E..."
@@ -14,7 +14,4 @@
       (keydown.enter)="onInputChange()"
     />
   </mat-form-field>
-  <button mat-raised-button color="primary" (click)="checkNoteCallback()">
-    Check
-  </button>
 </mat-card>

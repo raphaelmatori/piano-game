@@ -19,18 +19,27 @@ export class GuessBoxComponent {
 
   guessNoteValue: string = '';
 
+  constructor() {
+    setInterval(() => {
+      if(this.guessNoteInputField.nativeElement){
+        this.guessNoteInputField.nativeElement.focus();
+      }
+    }, 100);
+  }
+
   onInputChange() {
-    this.byInputChange.emit();
     this.guessNoteInputField.nativeElement.value =
       this.guessNoteValue.toLocaleUpperCase();
     this.guessNoteInputField.nativeElement.focus();
     this.guessNoteInputField.nativeElement.select();
+    this.checkNoteCallback();
+    
   }
 
   checkNoteCallback() {
-    this.byTypedNote.emit(this.guessNoteValue.toLocaleUpperCase());
     this.guessNoteInputField.nativeElement.focus();
     this.guessNoteInputField.nativeElement.select();
+    this.byTypedNote.emit(this.guessNoteValue.toLocaleUpperCase());
   }
 
   resetForm() {
